@@ -369,7 +369,7 @@ function _transparent(self::OpenGLData,cam::Camera)
     deactivate(GL_TEXTURE13)
 end
 
-function _widgets(self::OpenGLData,cam::Camera)
+function _widgets(self::OpenGLData,cam::Camera, corner_gizmo::Bool = true)
     activate(self._opaqueFBO)
     glDepthFunc(GL_ALWAYS)
 
@@ -377,19 +377,19 @@ function _widgets(self::OpenGLData,cam::Camera)
     glEnablei(GL_BLEND, 0)
     glDisablei(GL_BLEND, 1)
     glBlendFunci(0, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-    draw_ui!(self._renderers,cam,self._window)
+    draw_ui!(self._renderers,cam,self._window, corner_gizmo)
 
     glDepthFunc(GL_LEQUAL)
     glDisable(GL_BLEND)
 end
 
-function render_scene!(self::OpenGLData,cam::Camera)
+function render_scene!(self::OpenGLData,cam::Camera, corner_gizmo::Bool = true)
     begin_gpu(self._profiler,self._passes.pre_draw)
     _predraw(self,cam)
     end_gpu(self._profiler,self._passes.pre_draw)
     
     begin_gpu(self._profiler,self._passes.widgets)
-    _widgets(self,cam)
+    _widgets(self,cam, corner_gizmo)
     end_gpu(self._profiler,self._passes.widgets)
     
     begin_gpu(self._profiler,self._passes.opaque)
@@ -470,7 +470,7 @@ function update!(self::OpenGLData,cam::Camera,scene_change::Bool,hovered::UInt32
 end
 
 function screen_capture(self::OpenGLData, cam::Camera, hovered::UInt32)::Tuple{Vector{Vec3F}, Int32, Int32}
-    render_scene!(self,cam)
+    render_scene!(self,cam, false)
     blit_scene!(self,cam,hovered)
     pixel_buf = zeros(Vec3F, self._window.height * self._window.width)
     glReadnPixels(0, 0, self._window.width, self._window.height, GL_RGB, GL_FLOAT, sizeof(pixel_buf), pixel_buf)
