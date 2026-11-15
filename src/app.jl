@@ -152,7 +152,6 @@ function setup_callbacks(self::App)::Nothing
     register_callback_for_action((ac, ev) -> on_gizmo_drag_axis_end!(self, AXIS_X), self._inputs, KEY_UP, ACTION_DRAG_GIZMO_AXIS_X)
     register_callback_for_action((ac, ev) -> on_gizmo_drag_axis_end!(self, AXIS_Y), self._inputs, KEY_UP, ACTION_DRAG_GIZMO_AXIS_Y)
     register_callback_for_action((ac, ev) -> on_gizmo_drag_axis_end!(self, AXIS_Z), self._inputs, KEY_UP, ACTION_DRAG_GIZMO_AXIS_Z)
-    register_callback_for_action((ac, ev) -> (self._screenshot_in_progress = false; return false), self._inputs, KEY_UP, ACTION_TAKE_SCREENSHOT)
     register_callbacks!(self._inputs, self._manipulator)
     return nothing
 end
@@ -266,11 +265,10 @@ function save_image(self::App)
             output_buf = reshape(output_buf, pixel_buf[2], pixel_buf[3])
             reverse!(output_buf; dims = 2)
             output_buf = output_buf'
-            query
-            FileIO.formatname
             save(path, output_buf)
             _updateScene!(self)
         end
+        self._screenshot_in_progress = false
 end
 
 function _setInfiniteAABBSize(size, app)
