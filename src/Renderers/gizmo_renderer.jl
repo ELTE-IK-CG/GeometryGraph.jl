@@ -102,9 +102,11 @@ function pre_draw!(renderer::GizmoRenderer,cam::Camera,window::GLFWData)::Nothin
     return nothing
 end
 
-function draw_ui!(renderer::GizmoRenderer,cam::Camera,window::GLFWData)::Nothing
+function draw_ui!(renderer::GizmoRenderer,cam::Camera,window::GLFWData, corner_gizmo::Bool = true)::Nothing
     activate(renderer.empty_vao)
-    activate(renderer.corner_gizmo)
+    if corner_gizmo
+        activate(renderer.corner_gizmo)
+    end
     glDrawArrays(GL_LINES, 0, 12)
 
     if renderer.axes == AXIS_NONE return nothing end

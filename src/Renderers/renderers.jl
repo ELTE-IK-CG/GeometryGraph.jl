@@ -58,9 +58,13 @@ function pre_draw!(renderers::Dict{DataType,Renderer}, camera::Camera, window::G
     end
     return nothing
 end
-function draw_ui!(renderers::Dict{DataType,Renderer}, camera::Camera, window::GLFWData)
+function draw_ui!(renderers::Dict{DataType,Renderer}, camera::Camera, window::GLFWData, corner_gizmo::Bool = true)
     for renderer::Renderer in values(renderers)
-        draw_ui!(renderer, camera, window)
+        if renderer isa GizmoRenderer
+        draw_ui!(renderer, camera, window, corner_gizmo)
+        else
+            draw_ui!(renderer, camera, window)
+        end
     end
     return nothing
 end
