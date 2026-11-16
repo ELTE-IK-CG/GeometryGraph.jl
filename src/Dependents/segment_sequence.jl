@@ -172,7 +172,7 @@ SegmentSequence(_deps_collect, parents, break_every, color_style, color=color, s
 macro SegmentSequence(callback::Expr,break_every=2,args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_style,),(:color, :style, :size), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.SegmentSequence,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.SegmentSequence,
                                 positional_args, kw_args)
 end
 

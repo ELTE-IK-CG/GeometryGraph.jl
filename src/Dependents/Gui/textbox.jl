@@ -33,7 +33,7 @@ TextBox(callback::Function,parents::Union{Vector{NodeHandle},Nothing}=nothing)::
 macro TextBox(callback::Expr, args...)
     (positional_args, kw_args) = _parse_macro_arguments(tuple(), tuple(), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.TextBox,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.TextBox,
                                 positional_args, kw_args)
 end
 

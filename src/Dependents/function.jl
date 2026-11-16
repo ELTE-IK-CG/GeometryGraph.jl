@@ -175,7 +175,7 @@ function _create_func(callback::Function,inputs::Union{Tuple{<:T,<:S},Vector{Tup
     draw_data = nothing
     if (_can_be_graphed(outT))
         if (func.input_count == 1 && func.output_count > 0)
-            draw_data = FuncDrawData(FUNC_GRAPH_RESOLUTION,ImPlotColormap_Juliagebra)
+            draw_data = FuncDrawData(FUNC_GRAPH_RESOLUTION,ImPlotColormap_GeometryGraph)
         elseif (func.input_count == 2 && func.output_count == 1)
             draw_data = FuncDrawData(FUNC_HEATMAP_RESOLUTION,ImPlot.ImPlotColormap_Spectral)
         end

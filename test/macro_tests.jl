@@ -3,7 +3,7 @@ macro _test_identity_macro(x)
 end
 
 @testset verbose=true "Macro Tests" begin
-    import Juliagebra as SUT
+    import GeometryGraph as SUT
 
     @testset verbose=true "Macro Helpers - Free Variable Detection" begin
         test_expr = :(function(a=begin x=0; free0; 1 end, b=x; kw1=free1)

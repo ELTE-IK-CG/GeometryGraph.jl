@@ -1,4 +1,4 @@
-name = "Juliagebra"
+name = "GeometryGraph"
 uuid = "00df127a-38ce-4188-9178-c0c128ce8b4d"
 
 [deps]

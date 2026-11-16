@@ -1,4 +1,4 @@
-#the manager's logic is defined here, who manages the logic and graphics for juliagebra.
+#the manager's logic is defined here, who manages the logic and graphics for GeometryGraph.
 
 # ? ---------------------------------
 # ! App
@@ -37,7 +37,7 @@ mutable struct App <: AppDNA
     _callback_helpers::Vector{Expr}
 
     function App(
-        name::String="Juliagebra",
+        name::String="GeometryGraph",
         width::Int32=Int32(1280),
         height::Int32=Int32(720)
     )

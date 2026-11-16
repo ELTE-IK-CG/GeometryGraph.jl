@@ -519,7 +519,7 @@ function _create_ctor_wrapper(callback, mod::Module, base_ctor, ctor_optional_ar
             $(_callback_arg)($gs_callback_args, $sym_gs) :
             ($(esc(:(@isdefined($sym)))) ?
                 $(esc(sym)) :
-                @warn "Failed to find symbol '" * String($(QuoteNode(sym))) * "' in the defining context of a macro constructor. This could be because of an internal deficiency of the macro system, but it could be a user-side error as well. Execution will continue, as things may work without any problems, especially if the symbol does not refer to a dependent. Use the constructors with explicit dependency lists if experiencing any errors, or incorrect behavior, and please open an issue in the Juliagebra github repo."
+                @warn "Failed to find symbol '" * String($(QuoteNode(sym))) * "' in the defining context of a macro constructor. This could be because of an internal deficiency of the macro system, but it could be a user-side error as well. Execution will continue, as things may work without any problems, especially if the symbol does not refer to a dependent. Use the constructors with explicit dependency lists if experiencing any errors, or incorrect behavior, and please open an issue in the GeometryGraph GitHub repo."
             )
         )
         push!(inner_let_bindings.args, Expr(:(=), esc(sym), inner_let_rhs))

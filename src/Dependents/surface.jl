@@ -156,7 +156,7 @@ end
 macro ParametricSurface(callback::Expr,uRange,vRange,args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_data,),(:color, :enable_gpu_tessellation), args...)
     callback = _validate_callback_expr(callback, 2)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.ParametricSurface,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.ParametricSurface,
                                 positional_args,kw_args,
                                 (cb, deps) -> (cb, uRange, vRange, deps), true)
 end

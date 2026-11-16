@@ -1,4 +1,4 @@
-module Juliagebra
+module GeometryGraph
 
 using ModernGL
 using GLUtils

@@ -189,7 +189,7 @@ end
 macro ParametricCurve(callback::Expr,range,args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_style,),(:color, :style, :size, :enable_gpu_tessellation), args...)
     callback = _validate_callback_expr(callback, 1)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.ParametricCurve,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.ParametricCurve,
                                 positional_args, kw_args, (cb, deps) -> (cb, range, deps), true)
 end
 
