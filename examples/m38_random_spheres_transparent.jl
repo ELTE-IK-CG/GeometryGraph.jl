@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 const MIN_POS = -10.0
 const MAX_POS = 10.0
@@ -28,4 +28,4 @@ for i in 1:60
     Sphere(center, p1; color=(rand_rgb()...,0.5))
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

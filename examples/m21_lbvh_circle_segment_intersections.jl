@@ -1,5 +1,5 @@
-using Juliagebra
-using Juliagebra.LinearAlgebra
+using GeometryGraph
+using GeometryGraph.LinearAlgebra
 using StaticArrays
 using LinearAlgebra
 
@@ -130,4 +130,4 @@ for i in 0:(length(segments) - 1)
     )
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
 const CPU_TESS_COUNT = 250_000
@@ -33,4 +33,4 @@ end
     return center_gpu + Vec3(x, y, z)
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 spring = function (t,c)
     tMax = (2*pi)*5
@@ -24,4 +24,4 @@ ParametricCurve(spring,range(0,tMax,20000),[F],"c->")
 F = Point(2,-2,1)
 ParametricCurve(spring,range(0,tMax,20000),[F],"c<-")
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

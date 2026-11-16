@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 #println("Available :default threads: $(Threads.nthreads(:default))")
 #println("Available :interactive threads: $(Threads.nthreads(:interactive))")
@@ -18,4 +18,4 @@ C3 = Point([B1,B2]) do b,c
     return ((b.x + c.x)/2,b.y,c.z-1)
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

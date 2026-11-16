@@ -1,7 +1,7 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     s1 = Slider()
     s2 = Slider(10.0)
     s3 = Slider(-10,10)

@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
 function orbit(t,c,r)
@@ -25,4 +25,4 @@ end
 
 Sphere(earth, ValueHolder(0.65); color=(0.0, 0.063, 0.729))
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     Center = Point(5,5,0)
     tMax = (2*pi)*5
 

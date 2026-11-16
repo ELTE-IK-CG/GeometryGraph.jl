@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     
     s1 = Slider(label="A slider with a label")
     t1 = Toggle(label="A toggle with a label")

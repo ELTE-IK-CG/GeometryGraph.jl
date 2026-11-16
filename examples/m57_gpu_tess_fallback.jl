@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
 const MAX_INTERSECTIONS = 2000
@@ -53,4 +53,4 @@ for i in 1:MAX_INTERSECTIONS
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

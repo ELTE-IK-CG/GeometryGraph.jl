@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
 f6 = Func((-1.5,1.5)) do t
@@ -69,4 +69,4 @@ f10_curve = Curve!(f10)
 f10_curvature = Curvature(f10_curve)
 
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

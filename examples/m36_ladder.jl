@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 n = 20
 segment_length = 2.0
@@ -24,4 +24,4 @@ for i in 1:n
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

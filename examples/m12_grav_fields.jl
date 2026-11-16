@@ -1,7 +1,7 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     cursor = Point(-15,0,0)
     function gravField(fieldHeight,fieldStrengthDistance,u,v,p) 
         x = u

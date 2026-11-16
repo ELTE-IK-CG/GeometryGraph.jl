@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -62,4 +62,4 @@ mult = Slider(-1.0,1,2.0f0; label="Multiplier")
 offset = Scalar(1.0f0)
 Scalar((a,b,c) -> a * b + c,[base,mult,offset];label="Multiplied & offset")
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

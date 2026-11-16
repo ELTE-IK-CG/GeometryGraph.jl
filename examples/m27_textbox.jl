@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     txt1 = TextBox()
 
     txt2 = TextBox("Some sample text, which will be\n" * 

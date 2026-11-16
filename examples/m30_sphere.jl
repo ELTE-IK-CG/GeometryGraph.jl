@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     c1 = Point(3.0,0.0,0.0)
     p1 = Point(2.25,0.0,0.0)
     sphr1 = Sphere(c1,p1)

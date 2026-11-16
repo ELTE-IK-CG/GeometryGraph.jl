@@ -1,5 +1,5 @@
 using GLUtils
-using Juliagebra
+using GeometryGraph
 using LinearAlgebra
 ##
 set_at!(0.5,0.2,0)
@@ -36,6 +36,6 @@ ma = PerpendicularLine(A,bc;color_style="k:",size=3);
 mb = PerpendicularLine(B,cd;color_style="k:",size=3);
 mc = PerpendicularLine(C,ab;color_style="k:",size=3);
 M = Intersection(ma,mb)[1];
-Segment(M,add_node!((c) -> Juliagebra.p0(c);parents=[k]),"r",size=3.1)
+Segment(M,add_node!((c) -> GeometryGraph.p0(c);parents=[k]),"r",size=3.1)
 ##
-Juliagebra.Wait()
+GeometryGraph.Wait()

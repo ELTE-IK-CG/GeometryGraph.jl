@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using GLUtils: cross, normalize
 
@@ -84,4 +84,4 @@ end
     return param_fn(Float32(r), Float32(theta), Vec3F(P1), Float32(amplitude_gpu))
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

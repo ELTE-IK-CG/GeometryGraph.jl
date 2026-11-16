@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -52,4 +52,4 @@ Point(Intersection(t1, s2)[1])
 
 
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

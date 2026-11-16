@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
 # ? SourceValueHolder:
@@ -24,6 +24,6 @@ txt2 = TextBox([gd2]) do gd2
             "gd2 val: $(gd2)"
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()
 
 

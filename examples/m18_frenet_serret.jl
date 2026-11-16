@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using LinearAlgebra
 using DifferentialEquations
 

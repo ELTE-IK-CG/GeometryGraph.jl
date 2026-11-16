@@ -1,11 +1,11 @@
 # To try this example you need DelaunayTriangulation package
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using DelaunayTriangulation # <-- third party dependency, slow start because of this
 
 vec3 = Vec3D
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     initial_positions = [vec3(col[1],col[2],0.1) for col = eachcol(rand(2, 20))]
     movable_point_cloud = PointSet(initial_positions)
 

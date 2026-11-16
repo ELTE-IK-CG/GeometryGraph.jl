@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -210,4 +210,4 @@ Segment(B,C,style=ARROW)
 Segment(C,D,style=ARROW)
 Segment(D,E,style=ARROW)
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

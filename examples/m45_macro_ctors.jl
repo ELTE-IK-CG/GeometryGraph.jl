@@ -1,4 +1,4 @@
-import Juliagebra as JG # no using + renaming to test macro hygiene
+import GeometryGraph as JG # no using + renaming to test macro hygiene
 using GLUtils
 
 p1 = JG.Point(0,0,0)

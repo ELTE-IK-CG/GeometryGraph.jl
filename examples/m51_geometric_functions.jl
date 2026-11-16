@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -194,4 +194,4 @@ Parallel(s3,s4;color="y")
 
 #endregion
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

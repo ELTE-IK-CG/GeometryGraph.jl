@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 
  
@@ -121,4 +121,4 @@ for i in 1:392
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

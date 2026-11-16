@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 
 A = Point(0,0,0)
@@ -9,4 +9,4 @@ Segment(A,B,color=(1,0,0),type=ARROW,width=10.0f0)
 Segment(C,B,color=(0,1,0),type=DASHED,width=8.0f0)
 Segment(C,A,color=[(0,1,0),(1,0,0)],width=3.0f0)
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

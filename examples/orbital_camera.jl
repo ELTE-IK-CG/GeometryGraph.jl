@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -69,4 +69,4 @@ show_vec(eye, up,       "g")
     return positions, indices
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

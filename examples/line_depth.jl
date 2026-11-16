@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using LinearAlgebra
 
@@ -85,4 +85,4 @@ intersection_point = @Point() do
     return (res[1], res[2], res[3])
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

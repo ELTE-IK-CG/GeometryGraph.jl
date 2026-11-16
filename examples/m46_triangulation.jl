@@ -1,5 +1,5 @@
 # To try this example you need DelaunayTriangulation package
-using Juliagebra
+using GeometryGraph
 using GLUtils
 using DelaunayTriangulation # <-- third party dependency, slow start because of this
 
@@ -15,4 +15,4 @@ triangulation = TriangleCluster([movable_point_cloud]) do coords
     return [coords[index] for index in Iterators.flatten(real_triangles)]
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

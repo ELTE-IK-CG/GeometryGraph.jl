@@ -24,6 +24,7 @@ glslang_jll = "6fd5517d-459c-5c5a-9b1a-c968b4e37a81"
 stc_jll = "8dead81b-3450-5e2f-948b-0f2a405f2b3d"
 
 [sources]
+# TODO
 GLUtils = {rev = "lib_rename", url = "https://github.com/ELTE-IK-CG/GLUtils.jl"}
 ShaderTranspiler = {path = "../ShaderTranspiler.jl-release"}
 stc_jll = {path = "../stc_jll-release"}
