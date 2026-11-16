@@ -1,6 +1,6 @@
 using Juliagebra
-using JuliaGLM
-using JuliaGLM: cross, normalize
+using GLUtils
+using GLUtils: cross, normalize
 
 # tessellation range density
 TESS_RADIUS = 750

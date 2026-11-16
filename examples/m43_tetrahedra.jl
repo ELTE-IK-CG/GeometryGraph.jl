@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 Juliagebra.Window() do
     a = Point(0,0,0)

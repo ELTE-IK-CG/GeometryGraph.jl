@@ -1,6 +1,6 @@
 using Juliagebra
 using LinearAlgebra
-using JuliaGLM
+using GLUtils
 
 App()
 

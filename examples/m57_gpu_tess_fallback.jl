@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 const MAX_INTERSECTIONS = 2000
 

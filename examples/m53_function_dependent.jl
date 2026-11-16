@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 f1 = Func([(0.0,1),(-2,0.0)]) do a,b
     return a + b + sin(a * pi)

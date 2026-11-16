@@ -8,7 +8,7 @@ Every package used by Juliagebra can be found in the [Project.toml](Project.toml
 
 For some examples **DifferentialEquations** package is needed, which may downgrade your **DataStructures** package.
 
-Juliagebra depends on a package called [JuliaGLM](https://github.com/Csabix/JuliaGLM), which is currently not available in the official Julia package repository.
+Juliagebra depends on a package called [GLUtils](https://github.com/ELTE-IK-CG/GLUtils.jl), which is currently not available in the official Julia package repository.
 
 For 1.11+ versions of Julia, this doesn't require any additional work thanks to the new `[sources]` feature of [Project.toml](Project.toml), you can set up your Juliagebra environment by simply running:
 ```bash
@@ -28,7 +28,7 @@ Pkg.instantiate()
 
 If you already have a local `Manifest.toml` file, you might also need to run `resolve` before `instantiate`.
 
-With earlier Julia versions (or if for some reason Julia refuses to download JuliaGLM automatically), it is recommended that you clone [JuliaGLM](https://github.com/Csabix/JuliaGLM) from its official repository, then by ``` develop ```-ing it, you tell Julia, where this package is. See the [Add local packages](#add-local-packages) section for details.
+With earlier Julia versions (or if for some reason Julia refuses to download GLUtils automatically), it is recommended that you clone [GLUtils](https://github.com/ELTE-IK-CG/GLUtils.jl) from its official repository, then by ``` develop ```-ing it, you tell Julia where this package is. See the [Add local packages](#add-local-packages) section for details.
 
 ## Examples
 

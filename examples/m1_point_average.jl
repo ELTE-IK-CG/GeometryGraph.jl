@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 x1 = 1
 y1 = 1

@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 #println("Available :default threads: $(Threads.nthreads(:default))")
 #println("Available :interactive threads: $(Threads.nthreads(:interactive))")
 

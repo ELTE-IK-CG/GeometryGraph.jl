@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 using LinearAlgebra
 
 const width::Float64 = 0.2

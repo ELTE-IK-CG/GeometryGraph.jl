@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 using LinearAlgebra
 
 a = Point(-4,0,0)

@@ -1,6 +1,6 @@
 const GPU_TESS_LOCAL_SIZE::UInt32 = UInt32(256)
 
-# the transpiler currently only recognizes JuliaGLM types
+# the transpiler currently only recognizes GLUtils types
 # so manual normalization is required from StaticVector for now
 _svec_to_vec(v::StaticVector{2,T}) where {T} = Vec2T{T}(v)
 _svec_to_vec(v::StaticVector{3,T}) where {T} = Vec3T{T}(v)

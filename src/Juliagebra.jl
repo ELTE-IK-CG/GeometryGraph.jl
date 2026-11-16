@@ -1,7 +1,7 @@
 module Juliagebra
 
 using ModernGL
-using JuliaGLM
+using GLUtils
 using LinearAlgebra
 using GLFW
 using CImGui

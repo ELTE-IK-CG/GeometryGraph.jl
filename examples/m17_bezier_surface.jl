@@ -1,4 +1,4 @@
-using JuliaGLM
+using GLUtils
 using Juliagebra
 
 P00 = Point( -0.5,  -0.5,  1)

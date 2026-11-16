@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 Juliagebra.Window() do 
     cursor = Point(-15,0,0)

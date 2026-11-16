@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 const CPU_TESS_COUNT = 250_000
 const GPU_TESS_COUNT = 250_000

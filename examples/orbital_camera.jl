@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 using LinearAlgebra
 
 u = Slider(-π,π;label="u")

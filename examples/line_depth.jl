@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 using LinearAlgebra
 
 width_front = Slider(0.1,0.5;label="width_front")

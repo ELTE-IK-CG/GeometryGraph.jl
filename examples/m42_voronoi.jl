@@ -1,6 +1,6 @@
 # To try this example you need DelaunayTriangulation package
 using Juliagebra
-using JuliaGLM
+using GLUtils
 using DelaunayTriangulation # <-- third party dependency, slow start because of this
 
 vec3 = Vec3D

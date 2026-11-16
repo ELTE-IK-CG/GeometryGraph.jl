@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 function orbit(t,c,r)
     return Vec3D(sin(t),cos(t),0.0) .* r .+ c

@@ -1,5 +1,5 @@
 import Juliagebra as JG # no using + renaming to test macro hygiene
-using JuliaGLM
+using GLUtils
 
 p1 = JG.Point(0,0,0)
 

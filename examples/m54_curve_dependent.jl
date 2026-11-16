@@ -1,5 +1,5 @@
 using Juliagebra
-using JuliaGLM
+using GLUtils
 
 f6 = Func((-1.5,1.5)) do t
     return t^3 - t

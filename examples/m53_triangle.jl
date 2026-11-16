@@ -1,4 +1,4 @@
-using JuliaGLM
+using GLUtils
 using Juliagebra
 using LinearAlgebra
 ##

@@ -120,7 +120,7 @@ function _renderDependentsTab(self::GraphWindow, app::AppDNA)
             CImGui.TextColored(color, "$(id)")
 
             CImGui.TableNextColumn()
-            txtStr = replace("$(typeof(dependent))",r"Juliagebra\.|JuliaGLM\." => "")
+            txtStr = replace("$(typeof(dependent))",r"Juliagebra\.|GLUtils\." => "")
             CImGui.TextColored(color, txtStr)
             
             CImGui.TableNextColumn()
