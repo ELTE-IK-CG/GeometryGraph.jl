@@ -174,35 +174,40 @@ function clear!(app::App)
     app._need_clear = false
 end
 
+# One iteration of the main loop, split out of the loop for precompilation
+function frame!(self::App, old_time::Float64, old_gc_num::Base.GC_Num)::Tuple{Float64,Base.GC_Num}
+    new_gc_num = Base.gc_num()
+    gc_diff = Base.GC_Diff(new_gc_num, old_gc_num)
+    self._frame_alloc_count = Base.gc_alloc_count(gc_diff)
+    self._frame_alloc_bytes = gc_diff.allocd
+    self._frame_gc_count = gc_diff.pause
+    self._frame_gc_full = gc_diff.full_sweep
+    self._frame_gc_time_ns = gc_diff.total_time
+
+    yield()
+    perf_get_results()
+    new_time::Float64 = time()
+    delta_time = new_time - old_time
+    self._delta_time = delta_time
+    update!(self._asset_watcher,delta_time)
+    self._scene_change |= updateCam!(self,delta_time)
+
+    iconified = Bool(GLFW.GetWindowAttrib(self._glfw._window, GLFW.ICONIFIED))
+    update!(self,iconified)
+
+    if self._frame_limiter !== nothing before_buffer_swap!(self._frame_limiter) end
+    swap_buffers(self._glfw)
+    if self._frame_limiter !== nothing after_buffer_swap!(self._frame_limiter) end
+    poll_events(self._glfw, self._inputs)
+    self._need_clear && clear!(self)
+    return new_time, new_gc_num
+end
+
 function play!(self::App)
     old_time::Float64 = time()
     old_gc_num = Base.gc_num()
     while(!get_shouldclose(self._glfw))
-        new_gc_num = Base.gc_num()
-        gc_diff = Base.GC_Diff(new_gc_num, old_gc_num)
-        old_gc_num = new_gc_num
-        self._frame_alloc_count = Base.gc_alloc_count(gc_diff)
-        self._frame_alloc_bytes = gc_diff.allocd
-        self._frame_gc_count = gc_diff.pause
-        self._frame_gc_full = gc_diff.full_sweep
-        self._frame_gc_time_ns = gc_diff.total_time
-
-        yield()
-        perf_get_results()
-        new_time::Float64 = time()
-        delta_time = new_time - old_time
-        old_time = new_time
-        self._delta_time = delta_time
-        update!(self._asset_watcher,delta_time)
-        self._scene_change |= updateCam!(self,delta_time)
-
-        iconified = Bool(GLFW.GetWindowAttrib(self._glfw._window, GLFW.ICONIFIED))
-        update!(self,iconified)
-        if self._frame_limiter !== nothing before_buffer_swap!(self._frame_limiter) end
-        swap_buffers(self._glfw)
-        if self._frame_limiter !== nothing after_buffer_swap!(self._frame_limiter) end
-        poll_events(self._glfw, self._inputs)
-        self._need_clear && clear!(self)
+        old_time, old_gc_num = frame!(self, old_time, old_gc_num)
     end
     destroy!(self)
     

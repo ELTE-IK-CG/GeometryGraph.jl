@@ -39,7 +39,7 @@ include("App/enums.jl")
 
 # Forward-declare typed globals before any file references them (Julia 1.11 typed globals requirement)
 global implicitApp::Union{AppDNA,Nothing} = nothing
-global _task::Any = nothing
+global _task::Union{Nothing,StableTasks.StableTask{Nothing}} = nothing
 
 # ? ---------------------------------
 # ! Helpers
@@ -220,5 +220,24 @@ include("Helpers/geometric_helpers.jl")
 include("Primitives/geometric_functions.jl")
 
 export plot, add_node!, @add_node!, get_element
+
+using PrecompileTools: @setup_workload, @compile_workload
+
+@setup_workload begin
+    app = App()
+    @compile_workload begin
+        global implicitApp = app
+        try
+            init!(app)
+            t, gc = time(), Base.gc_num()
+            for _ in 1:2
+                t, gc = frame!(app, t, gc)
+            end
+            destroy!(app)
+        finally
+            global implicitApp = nothing
+        end
+    end
+end
 
 end
