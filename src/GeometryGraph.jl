@@ -35,7 +35,6 @@ include("camera_manipulator.jl")
 include("Renderers/renderers.jl")
 
 include("abstracts.jl")
-include("App/enums.jl")
 
 # Forward-declare typed globals before any file references them (Julia 1.11 typed globals requirement)
 global implicitApp::Union{AppDNA,Nothing} = nothing
