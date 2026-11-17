@@ -45,7 +45,7 @@ function reconstruct_node(data::ParametricCurveDrawData, p::Dict{Symbol, Any})::
     )
 end
 
-const GPU_TESS_CURVE_T_RANGE = :JG_TESS_T_RANGE
+const GPU_TESS_CURVE_T_RANGE = :GG_TESS_T_RANGE
 const GPU_TESS_CURVE_NODE_UNIFORMS = Dict{Symbol,DataType}(GPU_TESS_CURVE_T_RANGE => Vec2F)
 
 # convert_callback_entry(pc::ParametricCurve)::Vector{Vec3D} = pc.values
@@ -144,7 +144,7 @@ function wrap_curve_callback(callback_ast::Expr)::Union{Expr,Nothing}
     popfirst!(result.args[1].args)
 
     pushfirst!(result.args[2].args, :(
-        $t_varname = $(GPU_TESS_CURVE_T_RANGE).x + Float32(JG_TESS_ID) * $(GPU_TESS_CURVE_T_RANGE).y
+        $t_varname = $(GPU_TESS_CURVE_T_RANGE).x + Float32($GPU_TESS_ID) * $(GPU_TESS_CURVE_T_RANGE).y
     ))
 
     return result
