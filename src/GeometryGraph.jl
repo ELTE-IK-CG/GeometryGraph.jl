@@ -224,8 +224,8 @@ export plot, add_node!, @add_node!, get_element
 using PrecompileTools: @setup_workload, @compile_workload
 
 @setup_workload begin
-    app = App()
     @compile_workload begin
+        app = App()
         global implicitApp = app
         try
             init!(app)
