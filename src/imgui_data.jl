@@ -10,7 +10,7 @@
 #Dependent2Observer(app::AppDNA, ::StepperDependent) = getImGui(app)._pool[4]
 
 const _FONT_FOLDER::String = joinpath(pkgdir(@__MODULE__),"src","Fonts")
-const ImPlotColormap_Juliagebra::String = "Juliagebra"
+const ImPlotColormap_GeometryGraph::String = "GeometryGraph"
 
 mutable struct ImGuiData <: ImGuiDNA
     _textFont::Ptr{CImGui.lib.ImFont}
@@ -148,7 +148,7 @@ function destroy!(::ImGuiData)::Nothing
 end
 
 function add_colormap()
-    juliagebra_colors = [ImPlot.GetColormapColor(i,ImPlot.ImPlotColormap_Dark) for i in 0:ImPlot.GetColormapSize(ImPlot.ImPlotColormap_Dark)-1]
-    juliagebra_colors[2], juliagebra_colors[3] = juliagebra_colors[3], juliagebra_colors[2]
-    ImPlot.AddColormap(ImPlotColormap_Juliagebra,juliagebra_colors,length(juliagebra_colors))
+    geometry_graph_colors = [ImPlot.GetColormapColor(i,ImPlot.ImPlotColormap_Dark) for i in 0:ImPlot.GetColormapSize(ImPlot.ImPlotColormap_Dark)-1]
+    geometry_graph_colors[2], geometry_graph_colors[3] = geometry_graph_colors[3], geometry_graph_colors[2]
+    ImPlot.AddColormap(ImPlotColormap_GeometryGraph,geometry_graph_colors,length(geometry_graph_colors))
 end

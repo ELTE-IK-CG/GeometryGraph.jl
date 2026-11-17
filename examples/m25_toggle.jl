@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     t1 = Toggle()
 
     p1 = Point([t1]) do t1

@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 App()

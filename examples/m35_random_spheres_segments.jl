@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 App()
 
@@ -36,4 +36,4 @@ for stype in segment_types
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

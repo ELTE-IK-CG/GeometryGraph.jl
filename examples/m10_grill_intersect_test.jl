@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     function genPoints(xp,yp,zp,xtr,ytr,ztr)
         p = Point(xp,yp,zp)
         s = Point([p]) do p

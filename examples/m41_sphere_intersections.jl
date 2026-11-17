@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
  
 function Triangle(a,b,c)
@@ -121,4 +121,4 @@ for i in 1:392
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

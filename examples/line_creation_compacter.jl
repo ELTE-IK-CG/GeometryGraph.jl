@@ -1,6 +1,6 @@
 ##
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 ##
 function triangle(a, b, c, col)

@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     cursor = Point(0,0,5)
 
     function wave(xf,yf,zf,cap,xc,yc,zc)
@@ -27,4 +27,4 @@ Juliagebra.Window() do
 end
 
 
-#Juliagebra.Wait()
+#GeometryGraph.Wait()

@@ -38,8 +38,8 @@ function  reconstruct_node(data::ParametricSurfaceDrawData, p::Dict{Symbol, Any}
     )
 end
 
-const GPU_TESS_SURFACE_UV_RANGE = :JG_TESS_UV_RANGE
-const GPU_TESS_SURFACE_GRID_WIDTH = :JG_TESS_GRID_WIDTH
+const GPU_TESS_SURFACE_UV_RANGE = :GG_TESS_UV_RANGE
+const GPU_TESS_SURFACE_GRID_WIDTH = :GG_TESS_GRID_WIDTH
 const GPU_TESS_SURFACE_NODE_UNIFORMS = Dict{Symbol,DataType}(
     GPU_TESS_SURFACE_UV_RANGE => Vec4F,
     GPU_TESS_SURFACE_GRID_WIDTH => Int32
@@ -120,8 +120,8 @@ function wrap_surface_callback(callback_ast::Expr)::Union{Expr,Nothing}
     deleteat!(result.args[1].args, 1:2)
 
     pushfirst!(result.args[2].args,
-        :($u_varname = $GPU_TESS_SURFACE_UV_RANGE.x + (Int32(JG_TESS_ID) % $GPU_TESS_SURFACE_GRID_WIDTH) * $GPU_TESS_SURFACE_UV_RANGE.y),
-        :($v_varname = $GPU_TESS_SURFACE_UV_RANGE.z + div(Int32(JG_TESS_ID), $GPU_TESS_SURFACE_GRID_WIDTH) * $GPU_TESS_SURFACE_UV_RANGE.w)
+        :($u_varname = $GPU_TESS_SURFACE_UV_RANGE.x + (Int32($GPU_TESS_ID) % $GPU_TESS_SURFACE_GRID_WIDTH) * $GPU_TESS_SURFACE_UV_RANGE.y),
+        :($v_varname = $GPU_TESS_SURFACE_UV_RANGE.z + div(Int32($GPU_TESS_ID), $GPU_TESS_SURFACE_GRID_WIDTH) * $GPU_TESS_SURFACE_UV_RANGE.w)
     )
 
     return result
@@ -156,7 +156,7 @@ end
 macro ParametricSurface(callback::Expr,uRange,vRange,args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_data,),(:color, :enable_gpu_tessellation), args...)
     callback = _validate_callback_expr(callback, 2)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.ParametricSurface,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.ParametricSurface,
                                 positional_args,kw_args,
                                 (cb, deps) -> (cb, uRange, vRange, deps), true)
 end

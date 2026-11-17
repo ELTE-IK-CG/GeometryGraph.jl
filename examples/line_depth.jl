@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 width_front = Slider(0.1,0.5;label="width_front")
@@ -85,4 +85,4 @@ intersection_point = @Point() do
     return (res[1], res[2], res[3])
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

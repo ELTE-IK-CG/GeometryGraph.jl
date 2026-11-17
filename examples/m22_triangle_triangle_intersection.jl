@@ -1,5 +1,5 @@
-using Juliagebra
-using Juliagebra.LinearAlgebra
+using GeometryGraph
+using GeometryGraph.LinearAlgebra
 using StaticArrays
 using LinearAlgebra
 

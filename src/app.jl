@@ -1,8 +1,9 @@
-#the manager's logic is defined here, who manages the logic and graphics for juliagebra.
+#the manager's logic is defined here, who manages the logic and graphics for GeometryGraph.
 using FileIO
 using ImageIO
 using Colors
 using NativeFileDialog
+
 # ? ---------------------------------
 # ! App
 # ? ---------------------------------
@@ -42,7 +43,7 @@ mutable struct App <: AppDNA
     _screenshot_in_progress::Bool
     _last_saved_path::String
     function App(
-        name::String="Juliagebra",
+        name::String="GeometryGraph",
         width::Int32=Int32(1280),
         height::Int32=Int32(720)
     )

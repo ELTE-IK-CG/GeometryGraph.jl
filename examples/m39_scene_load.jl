@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 function z_rot(degrees)
     c, s = cos(degrees), sin(degrees)
@@ -44,4 +44,4 @@ for (index, mesh) in enumerate(scene)
     end
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

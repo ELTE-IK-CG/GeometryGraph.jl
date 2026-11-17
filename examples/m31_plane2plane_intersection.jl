@@ -1,6 +1,6 @@
-using Juliagebra
+using GeometryGraph
 using LinearAlgebra
-using JuliaGLM
+using GLUtils
 
 App()
 

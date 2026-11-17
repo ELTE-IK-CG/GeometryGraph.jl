@@ -144,7 +144,7 @@ end
 macro Sphere(callback::Expr,args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_data,),(:color,), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.Sphere,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.Sphere,
                                 positional_args,kw_args)
 end
 

@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
 f1 = Func([(0.0,1),(-2,0.0)]) do a,b
     return a + b + sin(a * pi)
@@ -52,4 +52,4 @@ scalar_const = f5(.67)
 point3d_const = f3(pi)
 point3d_2params = f1(.4,-1.1)
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

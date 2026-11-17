@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 #region Colors
@@ -58,4 +58,4 @@ Segment(inscribed_center,ClosestPoint(inscribed_center,ACD; color=blue, size=20)
 Segment(inscribed_center,ClosestPoint(inscribed_center,BDC; color=blue, size=20); color=blue, size=3)
 #endregion
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

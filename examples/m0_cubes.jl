@@ -1,5 +1,5 @@
-include("../../Prototype/juliagebra.jl")
-using .JuliAgebra
+include("../../Prototype/GeometryGraph.jl")
+using .GeometryGraph
 
 App()
 

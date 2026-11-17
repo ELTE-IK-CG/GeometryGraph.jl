@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 function triangle(a, b, c, col)
@@ -322,4 +322,4 @@ curve_segment(A, B, C, D, line_width)
 curve_segment(B, C, D, E, line_width)
 curve_segment(C, D, E, F, line_width)
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

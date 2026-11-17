@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 a = Point(5.0,0.0,10.0)
 
@@ -23,4 +23,4 @@ surface2 = ParametricSurface(range(0.0,2*pi,50),range(0.0,5.0,50)) do u,v
     return (x,y,z-15)
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

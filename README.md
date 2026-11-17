@@ -1,16 +1,16 @@
-# Juliagebra
+# GeometryGraph
 
 Geogebra like 3D interactive plotting libary written in Julia and OpenGL.
 
 ## Used Packages
 
-Every package used by Juliagebra can be found in the [Project.toml](Project.toml) file.
+Every package used by GeometryGraph can be found in the [Project.toml](Project.toml) file.
 
 For some examples **DifferentialEquations** package is needed, which may downgrade your **DataStructures** package.
 
-Juliagebra depends on a package called [JuliaGLM](https://github.com/Csabix/JuliaGLM), which is currently not available in the official Julia package repository.
+GeometryGraph depends on a package called [GLUtils](https://github.com/ELTE-IK-CG/GLUtils.jl), which is currently not available in the official Julia package repository.
 
-For 1.11+ versions of Julia, this doesn't require any additional work thanks to the new `[sources]` feature of [Project.toml](Project.toml), you can set up your Juliagebra environment by simply running:
+For 1.11+ versions of Julia, this doesn't require any additional work thanks to the new `[sources]` feature of [Project.toml](Project.toml), you can set up your GeometryGraph environment by simply running:
 ```bash
 $ julia
 julia> ]
@@ -28,7 +28,7 @@ Pkg.instantiate()
 
 If you already have a local `Manifest.toml` file, you might also need to run `resolve` before `instantiate`.
 
-With earlier Julia versions (or if for some reason Julia refuses to download JuliaGLM automatically), it is recommended that you clone [JuliaGLM](https://github.com/Csabix/JuliaGLM) from its official repository, then by ``` develop ```-ing it, you tell Julia, where this package is. See the [Add local packages](#add-local-packages) section for details.
+With earlier Julia versions (or if for some reason Julia refuses to download GLUtils automatically), it is recommended that you clone [GLUtils](https://github.com/ELTE-IK-CG/GLUtils.jl) from its official repository, then by ``` develop ```-ing it, you tell Julia where this package is. See the [Add local packages](#add-local-packages) section for details.
 
 ## Examples
 
@@ -59,9 +59,9 @@ For how a Non-Rendered/Rendered Dependent can be created, a good place to start 
 
 Highly suggested steps for creating a Dependent:
 1. Create a file for it in the [src/Dependents/](src/Dependents/) folder.
-2. Include the created file in [Juliagebra.jl](src/Juliagebra.jl) below the **Dependents** section.
+2. Include the created file in [GeometryGraph.jl](src/GeometryGraph.jl) below the **Dependents** section.
 3. Additional helper files should go in the [src/Helpers/](src/Helpers/) folder.
-4. Helper files can be included in [Juliagebra.jl](src/Juliagebra.jl) below the **Helpers** section, or dierctly above the dependent's include, if nothing else uses it.
+4. Helper files can be included in [GeometryGraph.jl](src/GeometryGraph.jl) below the **Helpers** section, or dierctly above the dependent's include, if nothing else uses it.
 5. Create a **Plan**.
 6. Create a **Dependent**.
 7. If needed create a **Renderer**.
@@ -70,7 +70,7 @@ Highly suggested steps for creating a Dependent:
 
 ## Package commands
 
-For adding or removing packages Juliagebra depends on, run theese commands while you're cd-d into the root of this project, but try to keep the versions of the packages as free as possible in the [Project.toml](Project.toml) file.
+For adding or removing packages GeometryGraph depends on, run theese commands while you're cd-d into the root of this project, but try to keep the versions of the packages as free as possible in the [Project.toml](Project.toml) file.
 
 ### Add Dependent Packages:
 ```
@@ -85,10 +85,10 @@ add PackageName
 julia
 ]
 activate .
-develop path/to/package/relative/to/Juliagebra/root/folder
+develop path/to/package/relative/to/GeometryGraph/root/folder
 ```
 
-After adding local packages, it is reccomended, to run a ``` resolve ``` and ``` instantiate ``` command in both the global package scope, and in the Juliagebra package scope.
+After adding local packages, it is reccomended, to run a ``` resolve ``` and ``` instantiate ``` command in both the global package scope, and in the GeometryGraph package scope.
 
 ### Remove Dependent Packages:
 ```
@@ -97,8 +97,6 @@ julia
 activate .
 rm PackageName
 ```
-## Enviroment variables
-Set ```JULIAGEBRA_COMPILE_SPIRV``` env variable to ```"true"``` to recompile spirv files and enable hot reloading shaders when the source code changes
 
 ## Tests
 
@@ -118,4 +116,4 @@ test
 
 ## Most Stable Hardware
 
-Currently Juliagebra works best, without issues on Debian 12/13 or Ubuntu 24.04 LTS Linux with Xorg GNOME, using NVIDIA GPUs with NVIDIA's proprietary drivers.
+Currently GeometryGraph works best, without issues on Debian 12/13 or Ubuntu 24.04 LTS Linux with Xorg GNOME, using NVIDIA GPUs with NVIDIA's proprietary drivers.

@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
 # ? SourceValueHolder:
 # ? Starting value decides the type
@@ -24,6 +24,6 @@ txt2 = TextBox([gd2]) do gd2
             "gd2 val: $(gd2)"
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()
 
 

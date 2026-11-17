@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
 ##
 
@@ -311,4 +311,4 @@ d5 = Vec3D(0,4,1)
 Tetrahedron(a5,b5,d5,c5; color=(0.0,0.0,0.6), border_color=(0.9,0.0,0.0), border_style="<-", border_size=6.0);
 ##
 
-Juliagebra.Wait() # You dont have to use it when using the REPL, only when you directly run the file (julia scenes.jl)
+GeometryGraph.Wait() # You dont have to use it when using the REPL, only when you directly run the file (julia scenes.jl)

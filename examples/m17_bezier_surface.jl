@@ -1,5 +1,5 @@
-using JuliaGLM
-using Juliagebra
+using GLUtils
+using GeometryGraph
 
 P00 = Point( -0.5,  -0.5,  1)
 P10 = Point(  0.5,  -0.5,  0)
@@ -67,4 +67,4 @@ end
 #    return (u,v,sin(u)+sin(v)+5)    
 #end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

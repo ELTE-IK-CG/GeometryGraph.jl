@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 using LinearAlgebra
 
 a1 = Point(10,0,0)
@@ -61,4 +61,4 @@ ip = Point([a1,b1,a2,b2]) do a1,b1,a2,b2
 end
 
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

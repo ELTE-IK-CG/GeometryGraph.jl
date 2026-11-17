@@ -1,6 +1,6 @@
 
 @testset verbose=true "DependentGraph and Dependent Tests" begin
-    import Juliagebra as SUT
+    import GeometryGraph as SUT
     using JSON
 
     mutable struct TestDependent <: SUT.DependentDNA

@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 p1 = Point(0,1,0)
@@ -59,4 +59,4 @@ Segment(Intersection(plane2,triangle2)[1])
 
 
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

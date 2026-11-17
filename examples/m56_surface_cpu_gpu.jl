@@ -1,6 +1,6 @@
-using Juliagebra
-using JuliaGLM
-using JuliaGLM: cross, normalize
+using GeometryGraph
+using GLUtils
+using GLUtils: cross, normalize
 
 # tessellation range density
 TESS_RADIUS = 750
@@ -84,4 +84,4 @@ end
     return param_fn(Float32(r), Float32(theta), Vec3F(P1), Float32(amplitude_gpu))
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

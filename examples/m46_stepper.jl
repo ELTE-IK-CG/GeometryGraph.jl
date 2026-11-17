@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 s = Stepper(-1.0)
 
@@ -12,4 +12,4 @@ end
 
 Stepper(vh; label="Stepper with ValueHolder")
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

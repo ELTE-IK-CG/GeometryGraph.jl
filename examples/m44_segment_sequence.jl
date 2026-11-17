@@ -1,7 +1,7 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     styles = [
         SOLID,
         DASHED,

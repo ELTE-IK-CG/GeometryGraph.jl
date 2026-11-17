@@ -1,9 +1,9 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
 x1 = 1
 y1 = 1
-Juliagebra.Window() do
+GeometryGraph.Window() do
     cubePoints = [Point(x1,y1,-1)]
     
     for i in 1:3

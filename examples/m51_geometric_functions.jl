@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 #region Midpoints
@@ -194,4 +194,4 @@ Parallel(s3,s4;color="y")
 
 #endregion
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

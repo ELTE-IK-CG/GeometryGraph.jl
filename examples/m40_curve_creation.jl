@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 const width::Float64 = 0.2
@@ -210,4 +210,4 @@ Segment(B,C,style=ARROW)
 Segment(C,D,style=ARROW)
 Segment(D,E,style=ARROW)
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

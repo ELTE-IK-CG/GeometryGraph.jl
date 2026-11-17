@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 a = Point(0,0,0)
 
@@ -10,6 +10,6 @@ wave = ParametricSurface(range(-10.0,10.0,50),range(-10.0,10.0,50),[a]) do u,v,p
     return (x,y,z)
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()
 
 

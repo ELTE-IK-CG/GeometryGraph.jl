@@ -93,7 +93,7 @@ add_node!(_deps_collect,Vec3D[];parents=[Point(p[1],p[2],p[3],color_style;color=
 macro PointSet(callback::Expr, args...)
     (positional_args, kw_args) = _parse_macro_arguments((:color_style,),(:color, :style, :size), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.PointSet,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.PointSet,
                                 positional_args, kw_args)
 end
 

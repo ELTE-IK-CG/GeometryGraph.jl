@@ -1,7 +1,7 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 
-Juliagebra.Window() do
+GeometryGraph.Window() do
     a = Point(0,0,0)
     b = Point(1,0,0)
     c = Point(0,1,0)

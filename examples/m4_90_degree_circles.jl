@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 function circle(radius,t)
     x = cos(t) * radius
@@ -27,4 +27,4 @@ crv3 = ParametricCurve(range(0,tMax,55),[Center]) do t,p1
     return (xx,yy,zz + 15)
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

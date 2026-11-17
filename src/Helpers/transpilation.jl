@@ -1,10 +1,10 @@
 # identifiers used in generated tessellation shaders
-const GPU_TESS_N = :JG_TESS_N
+const GPU_TESS_N = :GG_TESS_N
 const GPU_TESS_N_STR = string(GPU_TESS_N)
-const GPU_TESS_BUF = :JG_TESS_BUFFER
-const GPU_TESS_COORD_ARR = :JG_TESS_COORD_ARRAY
-const GPU_TESS_CB = :JG_TESS_CALLBACK
-const GPU_TESS_ID = :JG_TESS_ID
+const GPU_TESS_BUF = :GG_TESS_BUFFER
+const GPU_TESS_COORD_ARR = :GG_TESS_COORD_ARRAY
+const GPU_TESS_CB = :GG_TESS_CALLBACK
+const GPU_TESS_ID = :GG_TESS_ID
 
 const GPU_TESS_DEBUG_ARG = "--debug-gpu-tess"
 const DBG_TESS::Bool = GPU_TESS_DEBUG_ARG in ARGS

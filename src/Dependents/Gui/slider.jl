@@ -102,7 +102,7 @@ end
 macro Slider(callback::Expr, args...)
     (positional_args, kw_args) = _parse_macro_arguments(tuple(),(:label,), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.Slider,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.Slider,
                                 positional_args, kw_args)
 end
 

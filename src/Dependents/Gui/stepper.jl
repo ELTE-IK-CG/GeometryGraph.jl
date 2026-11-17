@@ -84,7 +84,7 @@ end
 macro Stepper(callback::Expr, args...)
     (positional_args, kw_args) = _parse_macro_arguments(tuple(), (:label,), args...)
     callback = _validate_callback_expr(callback, 0)
-    return _create_ctor_wrapper(callback, __module__, Juliagebra.Stepper,
+    return _create_ctor_wrapper(callback, __module__, GeometryGraph.Stepper,
                                 positional_args, kw_args)
 end
 

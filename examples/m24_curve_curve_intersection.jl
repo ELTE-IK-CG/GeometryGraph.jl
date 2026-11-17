@@ -1,4 +1,4 @@
-using Juliagebra
+using GeometryGraph
 
 App()
 
@@ -31,6 +31,6 @@ for i in 1:6
 end
 
 
-Juliagebra.Wait()
+GeometryGraph.Wait()
 
 

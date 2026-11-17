@@ -1,5 +1,5 @@
-using Juliagebra
-using JuliaGLM
+using GeometryGraph
+using GLUtils
 using LinearAlgebra
 
 u = Slider(-π,π;label="u")
@@ -69,4 +69,4 @@ show_vec(eye, up,       "g")
     return positions, indices
 end
 
-Juliagebra.Wait()
+GeometryGraph.Wait()

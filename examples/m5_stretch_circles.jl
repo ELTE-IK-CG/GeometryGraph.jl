@@ -1,7 +1,7 @@
-using Juliagebra
+using GeometryGraph
 
 
-Juliagebra.Window() do 
+GeometryGraph.Window() do 
     Center = Point(0,0,0)
 
     Axis1 = Point([Center]) do c
