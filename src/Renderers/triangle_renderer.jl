@@ -245,8 +245,6 @@ function draw_transparent!(self::TriangleRenderer,cam::Camera,window::GLFWData):
     return nothing
 end
 
-_triangulated_size(grid_width::Integer,grid_height::Integer) = 6 * (grid_width - 1) * (grid_height - 1)
-
 function _check_buffer_size(self::TriangleRenderer,coords_length::Int)::Nothing
     size = coords_length * sizeof(Vec4F)
     max_size = self.max_shader_storage_block_size

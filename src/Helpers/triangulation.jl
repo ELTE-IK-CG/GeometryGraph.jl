@@ -9,9 +9,11 @@ function get_triangulated(values::AbstractMatrix{T}) where T
             values[v + 1, u],
             values[v,     u + 1]
         )
-        for v in 1:(h - 1) for u in 1:(w - 1)
+        for u in 1:(w - 1) for v in 1:(h - 1)
     ))
 end
+
+_triangulated_size(grid_width::Integer,grid_height::Integer) = 6 * (grid_width - 1) * (grid_height - 1)
 
 struct PTrianglesOfSurface <: PrimitivesOf{PTriangle}
     values::Matrix{Vec3D}

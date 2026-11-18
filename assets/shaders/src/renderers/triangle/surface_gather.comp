@@ -1,50 +1,49 @@
 #version 460 core
 
-// performs the same kind of triangulation as get_triangulated in flat_matrix_manager.jl
+// performs the same kind of triangulation as get_triangulated in Helpers/triangulation.jl
+// tris are created interleaved per quad, u (row) varying fastest
 // it avoids having to copy the GPU buffer to the CPU, or upload a CPU index buffer for triangulation
-// NOTE: winding matches get_triangulated exactly, which means it currently differs from triangulateInto!
 
 layout(local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
 
-// input produced by GPU tessellation, indexed by u varying
+// input produced by tessellation, indexed by u varying
 layout(std430, binding = 0) restrict readonly buffer TessellationBuffer {
-    vec4 grid[]; // vec4(x, y, z, 1.0) format is already assumed
+    vec4 grid[]; // w is discarded, uses vec4 only to match std430 padding
 };
 
 // output, triangulated
 layout(std430, binding = 1) restrict writeonly buffer CoordsBuffer {
-    vec4 coords[];
+    vec4 coords[]; // produces (x, y, z, 1.0f)
 };
 
 layout(location = 0) uniform uint vertex_count;
+
+// naming here is a bit confusing:
+// this is the width in terms of the flattened buffer memory (the number of elements in the first dimension)
+// when looking at the tessellation buffer as a matrix, this is the number of rows (i.e. the height)
 layout(location = 1) uniform uint grid_width;
 
-// (du, dv)
+// (du, dv), same layout as in get_triangulated
 const uvec2 VERTEX_OFFSETS[6] = {
-    // UPPER (get_triangulated 1st loop)
-    uvec2(0, 0), uvec2(0, 1), uvec2(1,  0),
-    // LOWER (get_triangulated 2nd loop)
-    uvec2(0, 0), uvec2(1, 0), uvec2(1, -1) // -1 becomes 0xFFFFFFFF and acts as -1 thx to uint overflow
+    uvec2(1, 0), uvec2(0, 0), uvec2(0, 1), // upper tri
+    uvec2(1, 1), uvec2(1, 0), uvec2(0, 1)  // lower tri
 };
 
 // one invocation per output vertex
 void main() {
-    // flatten idx, 2D dispatch only used to reduce per-axis workgroup count for large surfaces
+    // flatten idx, 2D dispatch only used to reduce per-axis workgroup count for large surfaces (==> avoid hitting device limits)
     uint idx = (gl_WorkGroupID.y * gl_NumWorkGroups.x + gl_WorkGroupID.x) * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
-    if (idx >= vertex_count)
-        return;
 
-    uint tris_per_half = vertex_count / 6u;
+    if (idx >= vertex_count) return;
 
-    uint tri_idx = idx / 3u;
-    uint lower   = uint(tri_idx >= tris_per_half);
+    uint quad_idx = idx / 6u;
 
-    uint rel_tri_idx = min(tri_idx, tri_idx - tris_per_half); // uint underflow trick to get idx relative to upper/lower half
+    // base (u, v) is the upper left vertex of the quad
+    // (... - 1u) because # of quads is one less than # of elements per dimension
+    uint base_u = quad_idx % (grid_width - 1u);
+    uint base_v = quad_idx / (grid_width - 1u);
 
-    uint base_u = rel_tri_idx % (grid_width - 1u);
-    uint base_v = rel_tri_idx / (grid_width - 1u) + lower; // v is offset by 1 for lower triangles, since they read v - 1
+    uvec2 offsets = VERTEX_OFFSETS[idx % 6u];
 
-    uvec2 offsets = VERTEX_OFFSETS[3u * lower + idx % 3u];
-
-    coords[idx] = grid[(base_v + offsets.y) * grid_width + base_u + offsets.x];
+    coords[idx] = vec4(grid[(base_v + offsets.y) * grid_width + base_u + offsets.x].xyz, 1.0f);
 }
