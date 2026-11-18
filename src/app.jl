@@ -1,9 +1,3 @@
-#the manager's logic is defined here, who manages the logic and graphics for GeometryGraph.
-using FileIO
-using ImageIO
-using Colors
-using NativeFileDialog
-
 # ? ---------------------------------
 # ! App
 # ? ---------------------------------
@@ -262,19 +256,41 @@ function update!(self::App, iconified::Bool)
     end
 end
 
+const _LazyIO = @NamedTuple{colors::Module, fileio::Module, dialog::Module}
+const _lazy_io = Ref{Union{_LazyIO,Nothing}}(nothing)
+
+function _load_lazy_io()::_LazyIO
+    io = _lazy_io[]
+    io !== nothing && return io
+    load(name::Symbol) = Base.require(@__MODULE__, name)
+    load(:ImageIO)
+    io = (colors = load(:Colors), fileio = load(:FileIO), dialog = load(:NativeFileDialog))
+    _lazy_io[] = io
+    return io
+end
+
+function _save_screenshot(io::_LazyIO, pixel_buf, default_path::String)::String
+    path = io.dialog.save_file(default_path; filterlist = "png,jpg")
+    isempty(path) && return path
+
+    pixels, w, h = pixel_buf
+    img = [io.colors.RGB(p.x, p.y, p.z) for p in pixels]
+    img = permutedims(reverse(reshape(img, w, h); dims = 2))
+    io.fileio.save(path, img)
+    return path
+end
+
 function save_image(self::App)
+    try
         pixel_buf = screen_capture(self._opengl, self._cam, UInt32(0))
-        output_buf = [RGB(a.x, a.y, a.z) for a in pixel_buf[1]]
-        path = save_file(self._last_saved_path; filterlist= "png,jpg")
-        if path != ""
+        path = Base.invokelatest(_save_screenshot, _load_lazy_io(), pixel_buf, self._last_saved_path)::String
+        if !isempty(path)
             self._last_saved_path = path
-            output_buf = reshape(output_buf, pixel_buf[2], pixel_buf[3])
-            reverse!(output_buf; dims = 2)
-            output_buf = output_buf'
-            save(path, output_buf)
             _updateScene!(self)
         end
+    finally
         self._screenshot_in_progress = false
+    end
 end
 
 function _setInfiniteAABBSize(size, app)
