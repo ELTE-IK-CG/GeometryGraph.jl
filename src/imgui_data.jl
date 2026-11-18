@@ -95,11 +95,11 @@ function render!(self::ImGuiData,app::AppDNA)
     CImGui.ImGui_ImplOpenGL3_NewFrame()
     CImGui.ImGui_ImplGlfw_NewFrame()
     CImGui.NewFrame()
-    CImGui.DockSpaceOverViewport()
+    CImGui.DockSpaceOverViewport(0, CImGui.GetMainViewport(), CImGui.ImGuiDockNodeFlags_PassthruCentralNode)
     for widget in self._widgets
         render(widget,app)
     end
-    
+
     CImGui.Render()
     CImGui.ImGui_ImplOpenGL3_RenderDrawData(CImGui.GetDrawData())
 end
