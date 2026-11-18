@@ -34,6 +34,9 @@ mutable struct ImGuiData <: ImGuiDNA
         
         CImGui.StyleColorsDark()
         io = CImGui.GetIO()
+
+        io.ConfigFlags = unsafe_load(io.ConfigFlags) | Int32(CImGui.ImGuiConfigFlags_DockingEnable)
+        
         CImGui.ImGui_ImplGlfw_InitForOpenGL(glfwD._window.handle, true)
         CImGui.ImGui_ImplOpenGL3_Init("#version 330")
         ImPlot.SetCurrentContext(ImPlot.CreateContext())
@@ -92,11 +95,11 @@ function render!(self::ImGuiData,app::AppDNA)
     CImGui.ImGui_ImplOpenGL3_NewFrame()
     CImGui.ImGui_ImplGlfw_NewFrame()
     CImGui.NewFrame()
-
+    CImGui.DockSpaceOverViewport()
     for widget in self._widgets
         render(widget,app)
     end
-
+    
     CImGui.Render()
     CImGui.ImGui_ImplOpenGL3_RenderDrawData(CImGui.GetDrawData())
 end
