@@ -241,6 +241,8 @@ using PrecompileTools: @setup_workload, @compile_workload
                 t, gc = frame!(app, t, gc)
             end
             destroy!(app)
+        catch e
+            @warn "GeometryGraph: skipping GL precompile workload (no usable OpenGL 4.6 context)" exception=e
         finally
             global implicitApp = nothing
         end
