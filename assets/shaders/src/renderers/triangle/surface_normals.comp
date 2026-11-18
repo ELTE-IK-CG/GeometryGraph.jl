@@ -21,8 +21,10 @@ void main() {
     int u = int(gl_GlobalInvocationID.x);
     int v = int(gl_GlobalInvocationID.y);
 
+    if (u >= uvGridSize.x || v >= uvGridSize.y) return;
+
     vec3 du = grid[grid_idx(min(u+1,uvGridSize.x-1), v)].xyz - grid[grid_idx(max(u-1,0), v)].xyz;
     vec3 dv = grid[grid_idx(u, min(v+1,uvGridSize.y-1))].xyz - grid[grid_idx(u, max(v-1,0))].xyz;
 
-    normals[flat_idx(u, v)] = vec4(normalize(cross(du, dv)), 0);
+    normals[grid_idx(u, v)] = vec4(normalize(cross(du, dv)), 0);
 }
