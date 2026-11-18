@@ -52,11 +52,11 @@ function render(self::Dock, app::AppDNA)
 
     CImGui.PushStyleVar(CImGui.ImGuiStyleVar_WindowRounding,11.0)
     CImGui.PushStyleVar(CImGui.ImGuiStyleVar_FrameRounding,6.0)
-    
+
     #CImGui.ImGuiWindowFlags_NoTitleBar
     CImGui.Begin("Dock",C_NULL,
         CImGui.ImGuiWindowFlags_NoResize | CImGui.ImGuiWindowFlags_NoMove | 
-        CImGui.ImGuiWindowFlags_HorizontalScrollbar) 
+        CImGui.ImGuiWindowFlags_HorizontalScrollbar | CImGui.ImGuiWindowFlags_NoDocking) 
     
     if (CImGui.IsWindowCollapsed())
         CImGui.SetWindowPos((self._collapsedPosX,self._collapsedPosY))

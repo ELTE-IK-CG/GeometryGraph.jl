@@ -32,7 +32,7 @@ function render(self::OptionsWidget, app::AppDNA)
         CImGui.ImGuiWindowFlags_NoSavedSettings | 
         CImGui.ImGuiWindowFlags_NoResize | CImGui.ImGuiWindowFlags_NoMove |
         CImGui.ImGuiWindowFlags_NoTitleBar | CImGui.ImGuiWindowFlags_NoCollapse |
-        CImGui.ImGuiWindowFlags_NoDecoration)
+        CImGui.ImGuiWindowFlags_NoDecoration | CImGui.ImGuiWindowFlags_NoDocking)
 
     CImGui.PushFont(imgui._iconFont,24)
     buttonSize::Tuple{Int,Int} = floor.((self._width,self._height) .- self._padding*2)
