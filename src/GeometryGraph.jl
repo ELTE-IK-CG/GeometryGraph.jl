@@ -7,7 +7,6 @@ using GLFW
 using CImGui
 using ImPlot
 using BitFlags
-#pinthreads(:cores)
 import MacroTools
 import ShaderTranspiler
 
