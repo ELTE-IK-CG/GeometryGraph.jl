@@ -6,8 +6,6 @@ using LinearAlgebra
 using GLFW
 using CImGui
 using ImPlot
-using DataStructures
-using ThreadPinning
 using BitFlags
 #pinthreads(:cores)
 import MacroTools
@@ -38,7 +36,16 @@ include("abstracts.jl")
 
 # Forward-declare typed globals before any file references them (Julia 1.11 typed globals requirement)
 global implicitApp::Union{AppDNA,Nothing} = nothing
-global _task::Union{Nothing,StableTasks.StableTask{Nothing}} = nothing
+global _task::Union{Nothing,Task} = nothing
+
+function spawn_on_thread(f, tid::Integer)::Task
+    1 <= tid <= Threads.maxthreadid() || throw(ArgumentError("invalid thread id $tid"))
+    t = Task(f)
+    t.sticky = true
+    ccall(:jl_set_task_tid, Cint, (Any, Cint), t, tid - 1) # Internal, can break
+    schedule(t)
+    return t
+end
 
 # ? ---------------------------------
 # ! Helpers
@@ -129,12 +136,14 @@ function plot()::Nothing
         implicitApp = App()
         init!(implicitApp)
         global _task
-        _task = ThreadPinning.@spawnat 1 begin
+        t = spawn_on_thread(1) do
+            global _task
             play!(implicitApp)
             _task = nothing
             println("ThreadID($(Threads.threadid())): App Ended!")
         end
-        errormonitor(_task)
+        _task = t
+        errormonitor(t)
     end
     return nothing
 end
