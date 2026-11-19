@@ -106,6 +106,7 @@ include("Widgets/named_window.jl")
 include("Widgets/performance_viewer.jl")
 include("Widgets/Windows/frame_time_window.jl")
 include("Widgets/Windows/options_window.jl")
+include("Widgets/Windows/main_window.jl")
 
 include("opengl_data.jl")
 

@@ -38,7 +38,7 @@ function render(self::ResetWidget, app::AppDNA)
         CImGui.ImGuiWindowFlags_NoSavedSettings | 
         CImGui.ImGuiWindowFlags_NoResize | CImGui.ImGuiWindowFlags_NoMove |
         CImGui.ImGuiWindowFlags_NoTitleBar | CImGui.ImGuiWindowFlags_NoCollapse |
-        CImGui.ImGuiWindowFlags_NoDecoration)
+        CImGui.ImGuiWindowFlags_NoDecoration | CImGui.ImGuiWindowFlags_NoDocking)
     
 
     CImGui.PushFont(imgui._iconFont,24)
