@@ -243,9 +243,7 @@ function glCheckErrors(::OpenGLData)
     end
 end
 
-function resize!(self::OpenGLData,window::GLFWData)
-    width = Int64(window.width)
-    height = Int64(window.height)
+function resize!(self::OpenGLData, width::Int64, height::Int64)
     glViewport(0,0,width,height)
     resize!(self._rgbaTexture,width,height)
     resize!(self._idTexture,width,height)
@@ -257,6 +255,12 @@ function resize!(self::OpenGLData,window::GLFWData)
     reserve!(self._pixel_buffer_dist, pixel_count, 0)
     reserve!(self._pixel_buffer_col, pixel_count, 0)
     reserve!(self._pixel_buffer_id, pixel_count, 0)
+end
+
+function resize!(self::OpenGLData,window::GLFWData)
+    width = Int64(window.width)
+    height = Int64(window.height)
+    resize!(self, width, height)
 end
 
 function readID(self::OpenGLData,x,y,width,height)::UInt32
