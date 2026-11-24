@@ -1,11 +1,9 @@
 mutable struct MainWindow <: WindowDNA
     window::Window
-
-    width::Int64
-    height::Int64
-
+    window_rect::Vec4F
+    last_open::Bool
     function MainWindow()
-        new(Window(),0,0)
+        new(Window(),Vec4F(0,0,0,0), false)
     end
 end
 
@@ -15,15 +13,26 @@ getWindowName(self::MainWindow) = "Main View"
 
 function render(self::MainWindow, app::AppDNA)
     if (isVisible(self))
+        if !self.last_open
+            enable_subviewport(app, self.window_rect)
+            
+        end
+        self.last_open =true
+        
         isVisible_Ref = Ref(isVisible(self))
 
-        CImGui.Begin(getWindowName(self),isVisible_Ref)
+        CImGui.Begin(getWindowName(self),isVisible_Ref, CImGui.ImGuiWindowFlags_NoBackground)
 
         renderContent(self, app)
 
         CImGui.End()
         
         setVisible(self,isVisible_Ref[])
+    elseif self.last_open
+        
+        disable_subviewport(app)
+        
+        self.last_open =false
     end
 end
 
@@ -38,22 +47,24 @@ function renderContent(self::MainWindow, app::AppDNA)
     isHovered = CImGui.IsItemHovered()
     isFocused = CImGui.IsItemFocused()
     
-    size = CImGui.GetContentRegionAvail()
+    size = CImGui.GetWindowSize()
 
     
     CImGui.PushStyleVar(CImGui.ImGuiStyleVar_FramePadding, (0.0,0.0))
-    clicked::Bool = CImGui.ImageButton("screen",CImGui.ImTextureRef(UInt64(texture._id)), size, CImGui.ImVec2(0,1), CImGui.ImVec2(1,0))
+    #clicked::Bool = CImGui.ImageButton("screen",CImGui.ImTextureRef(UInt64(texture._id)), size, CImGui.ImVec2(0,1), CImGui.ImVec2(1,0))
 
     CImGui.PopStyleVar()
 
-    width = Int64(size.x)
-    height = Int64(size.y)
-    if width != self.width | height != self.height
-        resize!(app._glfw, Cint(width), Cint(height))
-        resize!(app._opengl, width, height)
-        app._cam.aspect = app._glfw.width / app._glfw.height
-        calculate_projection_matrix!(app._cam)
+    rect = Vec4F(
+        screenPositionAbsolute.x,
+        app._glfw.height - screenPositionAbsolute.y - size.y - CImGui.GetFrameHeight(),
+        size.x,
+        size.y - CImGui.GetFrameHeight()
+    )
+     if self.window_rect != rect
+        self.window_rect = rect
+        subwindow_resize!(app, rect)
         _updateScene!(app)
-    end
+     end
 
 end
