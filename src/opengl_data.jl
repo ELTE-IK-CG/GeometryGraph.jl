@@ -82,6 +82,9 @@ mutable struct OpenGLData
     _max_wg_count::Tuple{GLint,GLint,GLint}
     _max_shader_storage_block_size::GLint64
 
+    _width::Int32
+    _height::Int32
+
     function OpenGLData(window::GLFWData,asset_watcher::Union{Nothing,AssetWatcher})
         c_debug_callback = @cfunction(debug_callback, Nothing, 
                                  (GLenum, GLenum, GLuint, GLenum, GLsizei, Ptr{GLchar}, Ptr{Cvoid}))
@@ -206,7 +209,7 @@ mutable struct OpenGLData
             opaqueFBO,behindOpaqueFBO,transparentFBO,
             ubo,ubo_aabb,pixel_buffer_dist,pixel_buffer_col,pixel_buffer_id,empty_vao,
             Vec3F(0.73,0.73,0.73),
-            last_vp,max_wg_count,max_shader_storage_block_size)
+            last_vp,max_wg_count,max_shader_storage_block_size, window.width, window.height)
 
         return self
     end
@@ -243,10 +246,10 @@ function glCheckErrors(::OpenGLData)
     end
 end
 
-function resize!(self::OpenGLData,window::GLFWData)
-    width = Int64(window.width)
-    height = Int64(window.height)
-    glViewport(0,0,width,height)
+function resize!(self::OpenGLData, width::Int64, height::Int64)
+    glViewport(0,0,width, height)
+    self._width = width
+    self._height = height
     resize!(self._rgbaTexture,width,height)
     resize!(self._idTexture,width,height)
     resize!(self._depthstencilTexture,width,height)
@@ -257,6 +260,12 @@ function resize!(self::OpenGLData,window::GLFWData)
     reserve!(self._pixel_buffer_dist, pixel_count, 0)
     reserve!(self._pixel_buffer_col, pixel_count, 0)
     reserve!(self._pixel_buffer_id, pixel_count, 0)
+end
+
+function resize!(self::OpenGLData,window::GLFWData)
+    width = Int64(window.width)
+    height = Int64(window.height)
+    resize!(self, width, height)
 end
 
 function readID(self::OpenGLData,x,y,width,height)::UInt32
@@ -281,7 +290,7 @@ function _predraw(self::OpenGLData,cam::Camera)::Nothing
     activate(self._transparentFBO)
     glClearBufferfv(GL_COLOR, 0, Float32[0.0f0, 0.0f0, 0.0f0, 0.0f0])
     glClearBufferfv(GL_COLOR, 1, Float32[1.0f0, 1.0f0, 1.0f0, 1.0f0])
-
+    
     # Pre draw call
     pre_draw!(self._renderers,cam,self._window)
 end
@@ -302,8 +311,8 @@ function _behind_opaque(self::OpenGLData,cam::Camera)::Nothing
     glBindFramebuffer(GL_READ_FRAMEBUFFER, self._opaqueFBO._id)
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, self._behindOpaqueFBO._id)
     glBlitFramebuffer(
-        0, 0, self._window.width, self._window.height,
-        0, 0, self._window.width, self._window.height,
+        0, 0, self._width, self._height,
+        0, 0, self._width, self._height,
         GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, 
         GL_NEAREST
     )
@@ -409,11 +418,13 @@ function blit_scene!(self::OpenGLData,cam::Camera,hovered::UInt32)
     glDisable(GL_DEPTH_TEST)
     glBindFramebuffer(GL_FRAMEBUFFER, 0)
     glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)
+    
+    
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-    w = GLint(self._window.width)
-    h = GLint(self._window.height)
+    w = GLint(self._width)
+    h = GLint(self._height)
     blit_to_screen(self._opaqueFBO, GL_COLOR_ATTACHMENT0, GL_COLOR_BUFFER_BIT, w, h)
 
     activate(self._empty_VAO)
@@ -436,13 +447,13 @@ function _ubo_update!(self::OpenGLData,cam::Camera,hovered::UInt32)
     (cam_light, side_light) = get_lights(cam)
     glBindBufferBase(GL_UNIFORM_BUFFER, 10, 0)
     
-    width::Float32 = Float32(self._window.width)
-    height::Float32 = Float32(self._window.height)
+    width::Float32 = Float32(self._width)
+    height::Float32 = Float32(self._height)
     wait(self._ubo)
     self._ubo[1] = UBO_Data(
         vp,v,p,
         Vec4F(-side_light...,width),Vec4F(-cam_light...,height),
-        Vec4F(cam.eye...,cam.aspect),Vec4F(cam.at...,reinterpret(Float32,UInt32(self._window.width))),
+        Vec4F(cam.eye...,cam.aspect),Vec4F(cam.at...,reinterpret(Float32,UInt32(self._width))),
         Vec4F(cam.zNear,cam.zFar,get_fov(cam),reinterpret(Float32,hovered))
     )
     glBindBufferBase(GL_UNIFORM_BUFFER, 10, id(self._ubo))
@@ -469,13 +480,33 @@ function update!(self::OpenGLData,cam::Camera,scene_change::Bool,hovered::UInt32
     end_cpu(self._profiler, self._cpu_stopwatch)
 end
 
-function screen_capture(self::OpenGLData, cam::Camera, hovered::UInt32)::Tuple{Vector{Vec3F}, Int32, Int32}
-    render_scene!(self,cam, false)
+function screen_capture(self::OpenGLData, cam::Camera, hovered::UInt32, include_gizmo::Bool = false, size::Union{Nothing, Vec2T{Int32}} = nothing)::Tuple{Vector{Vec3F}, Int32, Int32}
+    
+    
+    if size === nothing
+        size = Vec2T{Int32}(self._width, self._height)
+    end
+
+    @assert size.x <= self._width && size.y <= self._height "Captured area does not fit screen"
+
+    # old_aspect = cam.aspect
+    # cam.aspect = Float32(size.x)/Float32(size.y)
+    # calculate_projection_matrix!(cam)
+    # _ubo_update!(self,cam,hovered)
+    render_scene!(self,cam, include_gizmo)
     blit_scene!(self,cam,hovered)
-    pixel_buf = zeros(Vec3F, self._window.height * self._window.width)
-    glReadnPixels(0, 0, self._window.width, self._window.height, GL_RGB, GL_FLOAT, sizeof(pixel_buf), pixel_buf)
+
+    pixel_buf = zeros(Vec3F, size.x * size.y)
+    glReadnPixels(self._width - size.x, self._height - size.y, size.x, size.y, GL_RGB, GL_FLOAT, sizeof(pixel_buf), pixel_buf)
     glFinish()
-    return (pixel_buf, self._window.width, self._window.height)
+
+    # cam.aspect = old_aspect
+    # calculate_projection_matrix!(cam)
+    # _ubo_update!(self,cam,hovered)
+    render_scene!(self, cam)
+    blit_scene!(self, cam, hovered)
+
+    return (pixel_buf, size.x, size.y)
 end
 
 function destroy!(self::OpenGLData)

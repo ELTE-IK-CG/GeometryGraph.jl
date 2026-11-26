@@ -85,7 +85,12 @@ getImGui(self::App) = return self._imgui
 sceneChanged(self::App)::Nothing = (self._scene_change = true;nothing)
 
 function resize!(self::App, event::Event)::Bool
-    resize!(self._glfw, event.width, event.height)
+    resize!(self, event.width, event.height)
+    return false
+end
+
+function resize!(self::App, width::Cint, height::Cint)::Bool
+    resize!(self._glfw, width, height)
     resize!(self._opengl, self._glfw)
     self._cam.aspect = self._glfw.width / self._glfw.height
     calculate_projection_matrix!(self._cam)
