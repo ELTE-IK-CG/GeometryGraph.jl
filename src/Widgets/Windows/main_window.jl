@@ -58,7 +58,4 @@ function renderContent(self::MainWindow, app::AppDNA)
     clicked::Bool = CImGui.ImageButton("screen",CImGui.ImTextureRef(UInt64(self.tex._id)), (rect.x, rect.y), CImGui.ImVec2(0,1), CImGui.ImVec2(1,0))
 
     CImGui.PopStyleVar()
-
-    
-
 end

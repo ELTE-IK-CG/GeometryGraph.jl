@@ -482,37 +482,27 @@ end
 
 function screen_capture(self::OpenGLData, cam::Camera, hovered::UInt32, include_gizmo::Bool = false, size::Union{Nothing, Vec2T{Int32}} = nothing)::Tuple{Vector{Vec3F}, Int32, Int32}
     
-    old_size = Vec2T{Int32}(self._width, self._height)
+    
     if size === nothing
-        size = old_size
-    end
-    if size.x > old_size.x || size.y > old_size.y
-        resize!(self, size.x, size.y)
-    else
-        self._width = size.x
-        self._height = size.y
+        size = Vec2T{Int32}(self._width, self._height)
     end
 
-    old_aspect = cam.aspect
-    cam.aspect = Float32(size.x)/Float32(size.y)
-    calculate_projection_matrix!(cam)
+    @assert size.x <= self._width && size.y <= self._height "Captured area does not fit screen"
 
+    # old_aspect = cam.aspect
+    # cam.aspect = Float32(size.x)/Float32(size.y)
+    # calculate_projection_matrix!(cam)
+    # _ubo_update!(self,cam,hovered)
     render_scene!(self,cam, include_gizmo)
     blit_scene!(self,cam,hovered)
 
-    pixel_buf = zeros(Vec3F, self._width * self._height)
-    glReadnPixels(0, 0, self._width, self._height, GL_RGB, GL_FLOAT, sizeof(pixel_buf), pixel_buf)
+    pixel_buf = zeros(Vec3F, size.x * size.y)
+    glReadnPixels(self._width - size.x, self._height - size.y, size.x, size.y, GL_RGB, GL_FLOAT, sizeof(pixel_buf), pixel_buf)
     glFinish()
 
-    if size.x > old_size.x || size.y > old_size.y
-        resize!(self, old_size.x, old_size.y)
-    else
-        self._width = old_size.x
-        self._height = old_size.y
-    end
-    cam.aspect = old_aspect
-    calculate_projection_matrix!(cam)
-    
+    # cam.aspect = old_aspect
+    # calculate_projection_matrix!(cam)
+    # _ubo_update!(self,cam,hovered)
     render_scene!(self, cam)
     blit_scene!(self, cam, hovered)
 
