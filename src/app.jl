@@ -91,32 +91,16 @@ getImGui(self::App) = return self._imgui
 sceneChanged(self::App)::Nothing = (self._scene_change = true;nothing)
 
 function resize!(self::App, event::Event)::Bool
-    resize!(self._glfw, event.width, event.height)
-    resize!(self._opengl, self._glfw)
-    subwindow_resize!(self, Vec4F(0,0, event.width, event.height))
+    resize!(self, event.width, event.height)
     return false
 end
 
-function subwindow_resize!(self::App, subwindow::Vec4F)
-    if !self._opengl.subviewport_on
-        subwindow = Vec4F(0,0, self._glfw.width, self._glfw.height)
-    end
-    self._opengl.subviewport = subwindow
-    self._cam.aspect = subwindow.z / subwindow.w
+function resize!(self::App, width::Cint, height::Cint)::Bool
+    resize!(self._glfw, width, height)
+    resize!(self._opengl, self._glfw)
+    self._cam.aspect = self._glfw.width / self._glfw.height
     calculate_projection_matrix!(self._cam)
-end
-
-function enable_subviewport(self::App, subviewport::Vec4F)
-    self._opengl.subviewport = subviewport
-    self._opengl.subviewport_on = true
-    subwindow_resize!(self, subviewport)
-    _updateScene!(self)
-end
-function disable_subviewport(self::App)
-    self._opengl.subviewport_on = false
-    w = self._opengl._window
-    subwindow_resize!(self, Vec4F(0,0,w.width, w.height))
-    _updateScene!(self)
+    return false
 end
 
 function window_resize!(self::App, event::Event)::Bool
